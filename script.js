@@ -4,3 +4,13 @@ document.querySelectorAll('.lang').forEach(b=>b.addEventListener('click',()=>set
 const menu=document.querySelector('.menu-btn');const nav=document.querySelector('.nav-links');menu?.addEventListener('click',()=>{const open=nav.classList.toggle('open');menu.setAttribute('aria-expanded',open)});nav?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));
 document.getElementById('year').textContent=new Date().getFullYear();setLang(localStorage.getItem('azra-lang')||'en');
 setTimeout(()=>setLang(localStorage.getItem('azra-lang')||'tr'),0);
+
+(function(){
+const langs=[['tr','🇹🇷 Türkçe','tr'],['en','🇬🇧 English','en'],['ar','🇸🇦 العربية','ar'],['fa','🇮🇷 فارسی','fa'],['ku','🟢 Kurdî','ku'],['ur','🇵🇰 اردو','ur'],['hi','🇮🇳 हिन्दी','hi'],['az','🇦🇿 Azərbaycan','az'],['ru','🇷🇺 Русский','ru'],['fr','🇫🇷 Français','fr'],['de','🇩🇪 Deutsch','de'],['es','🇪🇸 Español','es'],['it','🇮🇹 Italiano','it'],['pt','🇵🇹 Português','pt'],['zh-CN','🇨🇳 中文','zh-CN'],['ja','🇯🇵 日本語','ja'],['ko','🇰🇷 한국어','ko'],['nl','🇳🇱 Nederlands','nl'],['el','🇬🇷 Ελληνικά','el'],['ro','🇷🇴 Română','ro'],['bg','🇧🇬 Български','bg'],['uk','🇺🇦 Українська','uk'],['pl','🇵🇱 Polski','pl'],['id','🇮🇩 Bahasa Indonesia','id'],['ms','🇲🇾 Bahasa Melayu','ms']];
+const holder=document.querySelector('.language');if(!holder)return;holder.innerHTML='';
+const select=document.createElement('select');select.className='language-select';select.setAttribute('aria-label','Dil seçimi');
+langs.forEach(x=>{const o=document.createElement('option');o.value=x[0];o.textContent=x[1];select.appendChild(o)});holder.appendChild(select);
+const style=document.createElement('style');style.textContent='.language-select{appearance:none;border:1px solid #dbe3ea;background:#fff;color:#102d4c;border-radius:8px;padding:10px 34px 10px 12px;font:600 13px Inter,Arial,sans-serif;cursor:pointer;min-width:155px;max-width:175px;outline:none}.language-select:focus{border-color:#102d4c;box-shadow:0 0 0 3px rgba(16,45,76,.08)}';document.head.appendChild(style);
+const saved=localStorage.getItem('azra-lang')||'tr';select.value=langs.some(x=>x[0]===saved)?saved:'tr';
+select.addEventListener('change',()=>{const code=select.value;localStorage.setItem('azra-lang',code);if(code==='tr'||code==='en'||code==='ar'){setLang(code);return}const u=encodeURIComponent(window.location.href.split('#')[0]);window.location.href='https://translate.google.com/translate?sl=tr&tl='+encodeURIComponent(code)+'&u='+u;});
+})();
