@@ -3,3 +3,4 @@ function setLang(lang){const t=translations[lang]||translations.en;document.docu
 document.querySelectorAll('.lang').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
 const menu=document.querySelector('.menu-btn');const nav=document.querySelector('.nav-links');menu?.addEventListener('click',()=>{const open=nav.classList.toggle('open');menu.setAttribute('aria-expanded',open)});nav?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));
 document.getElementById('year').textContent=new Date().getFullYear();setLang(localStorage.getItem('azra-lang')||'en');
+setTimeout(()=>setLang(localStorage.getItem('azra-lang')||'tr'),0);
